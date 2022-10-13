@@ -1,8 +1,10 @@
 # shorturl
 
 
-参考 https://github.com/zeromicro/zero-doc/blob/main/doc/shorturl.md
+> 完整文档参考: https://github.com/zeromicro/zero-doc/blob/main/doc/shorturl.md
 
+
+![](https://raw.githubusercontent.com/zeromicro/zero-doc/main/doc/images/shorturl-arch.png)
 
 ```
 
