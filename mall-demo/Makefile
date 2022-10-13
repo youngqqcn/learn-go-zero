@@ -10,7 +10,7 @@ start-rpc:
 
 
 start-api:
-	go run order/api/order.go -f order/api/etc/order.yaml
+	go run mall/order/api/order.go -f mall/order/api/etc/order.yaml
 
 
 test:

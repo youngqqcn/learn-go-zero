@@ -1,7 +1,7 @@
 package svc
 
 import (
-	"mall-demo/order/api/internal/config"
+	"mall-demo/mall/order/api/internal/config"
 	"mall-demo/mall/user/rpc/userclient"
 	"github.com/zeromicro/go-zero/zrpc"
 )

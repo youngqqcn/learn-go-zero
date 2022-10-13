@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"mall-demo/mall/user/rpc/types/user"
-	"mall-demo/order/api/internal/svc"
-	"mall-demo/order/api/internal/types"
+	"mall-demo/mall/order/api/internal/svc"
+	"mall-demo/mall/order/api/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
