@@ -1,5 +1,5 @@
 rpctemplate:
-	goctl rpc template -o transform.proto
+	goctl rpc -o transform.proto
 
 
 genrpc:

@@ -1,11 +1,11 @@
 start-etcd:
-	etcd 
+	etcd
 
 start-rpc:
 	go run ./rpc/transform.go -f ./rpc/etc/transform.yaml
 
 start-api:
-	go run ./api/shuturl.go -f ./api/etc/shuturl-api.yaml
+	go run ./api/shorturl.go -f ./api/etc/shorturl-api.yaml
 
 # all: start-etcd start-rpc start-api
 
@@ -15,6 +15,6 @@ test:
 
 .PHONY: clean
 
-clean: 
+clean:
 	pkill etcd && rm -rf default.etcd
 

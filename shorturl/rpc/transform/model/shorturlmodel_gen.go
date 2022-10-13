@@ -28,7 +28,7 @@ type (
 	shorturlModel interface {
 		Insert(ctx context.Context, data *Shorturl) (sql.Result, error)
 		FindOne(ctx context.Context, shorten string) (*Shorturl, error)
-		Update(ctx context.Context, newData *Shorturl) error
+		Update(ctx context.Context, data *Shorturl) error
 		Delete(ctx context.Context, shorten string) error
 	}
 
