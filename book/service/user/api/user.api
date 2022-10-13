@@ -1,0 +1,23 @@
+// 类型定义
+type (
+	LoginRequest {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	}
+
+	LoginResponse {
+		Id           int64  `json:"id"`
+		Name         string `json:"name"`
+		Gender       string `json:"gender"`
+		AccessSecret string `json:"AccessSecret"`
+		AccessExpire int64  `json:"AccessExpire"`
+		RefreshAfter int64  `json:"refreshAfter"`
+	}
+)
+
+// 服务
+service user-api {
+	@handler login
+	post /user/login (LoginRequest) returns (LoginResponse)
+	
+}
