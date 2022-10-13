@@ -4,15 +4,15 @@ import (
 	"flag"
 	"fmt"
 
-	"shuturl/api/internal/config"
-	"shuturl/api/internal/handler"
-	"shuturl/api/internal/svc"
+	"mall-demo/order/api/internal/config"
+	"mall-demo/order/api/internal/handler"
+	"mall-demo/order/api/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/rest"
 )
 
-var configFile = flag.String("f", "etc/shuturl-api.yaml", "the config file")
+var configFile = flag.String("f", "etc/order.yaml", "the config file")
 
 func main() {
 	flag.Parse()
