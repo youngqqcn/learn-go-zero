@@ -3,10 +3,10 @@ package logic
 import (
 	"book/service/user/model"
 	"context"
-	"errors"
 	"strings"
 	"time"
 
+	"book/common/errorx"
 	"book/service/user/api/internal/svc"
 	"book/service/user/api/internal/types"
 
@@ -41,7 +41,7 @@ func (l *LoginLogic) getJwtToken(secretKey string, iat, seconds, userId int64) (
 func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, err error) {
 	// todo: add your logic here and delete this line
 	if len(strings.TrimSpace(req.Username)) == 0 || len(strings.TrimSpace(req.Password)) == 0 {
-		return nil, errors.New("参数错误")
+		return nil, errorx.NewDefaultError("参数错误")
 	}
 
 	// number学号作为username
@@ -49,13 +49,13 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, 
 	switch err {
 	case nil:
 	case model.ErrNotFound:
-		return nil, errors.New("user not exists")
+		return nil, errorx.NewDefaultError("用户不存在")
 	default:
 		return nil, err
 	}
 
 	if userInfo.Password != req.Password {
-		return nil, errors.New("user password wrong")
+		return nil, errorx.NewDefaultError("用户名或密码错误")
 	}
 
 	// ---start---
