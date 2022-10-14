@@ -23,11 +23,11 @@ start-search-api:
 
 # 测试用户登录，返回jwt
 test-user-login:
-	curl -i -X POST http://127.0.0.1:8888/user/login -H 'Content-Type: application/json' -d '{ "username":"666","password":"123456"}'
+	curl -i -s -X POST http://127.0.0.1:8888/user/login -H 'Content-Type: application/json' -d '{ "username":"666","password":"123456"}'
 
 # 注意其中Authorization是用登录的jwt
 test-jwt:
-	curl -i -X GET 'http://127.0.0.1:8889/search/do?name=%E8%A5%BF%E6%B8%B8%E8%AE%B0'  -H 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NjU3MTY3MTQsImlhdCI6MTY2NTcxMzExNCwidXNlcklkIjoxfQ.aaW8gNPdMX_q5pTD159ubrPizCuu3GNkR6unBdKJYl0'
+	curl -i -s -X GET 'http://127.0.0.1:8889/search/do?name=%E8%A5%BF%E6%B8%B8%E8%AE%B0'  -H 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NjU3MTY3MTQsImlhdCI6MTY2NTcxMzExNCwidXNlcklkIjoxfQ.aaW8gNPdMX_q5pTD159ubrPizCuu3GNkR6unBdKJYl0'
 
 
 
