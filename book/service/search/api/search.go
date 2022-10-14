@@ -26,8 +26,7 @@ func main() {
 	server := rest.MustNewServer(c.RestConf)
 	defer server.Stop()
 
-	// 全局中间件没生效
-	// 全局中间件
+	// 全局中间件(当接口请求时生效)
 	server.Use(func(next http.HandlerFunc) http.HandlerFunc {
 		return func (w http.ResponseWriter, r *http.Request)  {
 			logx.Info("=============global middleware")

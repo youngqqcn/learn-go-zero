@@ -5,3 +5,8 @@ Port: 8889
 Auth:
   AccessSecret: 508f0c9c-70cc-45a0-89aa-c4853beafbd5
   AccessExpire: 3600
+UserRpc:
+  Etcd:
+    Hosts:
+    - 127.0.0.1:2379
+    Key: user.rpc

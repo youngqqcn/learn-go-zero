@@ -8,4 +8,6 @@ require (
 	github.com/mattn/go-colorable v0.1.12 // indirect
 	github.com/zeromicro/go-zero v1.4.1
 	golang.org/x/mod v0.5.0 // indirect
+	google.golang.org/grpc v1.49.0
+	google.golang.org/protobuf v1.28.1
 )
