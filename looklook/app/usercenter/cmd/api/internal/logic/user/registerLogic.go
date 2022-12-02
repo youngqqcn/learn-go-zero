@@ -2,6 +2,10 @@ package user
 
 import (
 	"context"
+	"github.com/jinzhu/copier"
+	"github.com/pkg/errors"
+	"looklook/app/usercenter/cmd/rpc/usercenter"
+	"looklook/app/usercenter/model"
 
 	"looklook/app/usercenter/cmd/api/internal/svc"
 	"looklook/app/usercenter/cmd/api/internal/types"
@@ -26,6 +30,20 @@ func NewRegisterLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Register
 func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.RegisterResp, err error) {
 	// todo: add your logic here and delete this line
 	// 用户注册
+	logx.Error("xxxxxxxxxxxx")
 
-	return
+	registerResp, err := l.svcCtx.UserCenterRpc.Register(l.ctx, &usercenter.RegisterReq{
+		Mobile:   req.Mobile,
+		Password: req.Password,
+		AuthKey:  req.Mobile,
+		AuthType: model.UserAuthTypeSystem,
+	})
+	if err != nil {
+		return nil, errors.New("register rpc error")
+	}
+
+	var ret types.RegisterResp
+	_ = copier.Copy(&ret, &registerResp)
+
+	return &ret, nil
 }

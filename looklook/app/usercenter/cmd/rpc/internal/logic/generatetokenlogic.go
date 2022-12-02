@@ -27,5 +27,9 @@ func (l *GenerateTokenLogic) GenerateToken(in *pb.GenerateTokenReq) (*pb.Generat
 	// todo: add your logic here and delete this line
 	// 生成token
 
-	return &pb.GenerateTokenResp{}, nil
+	return &pb.GenerateTokenResp{
+		AccessToken:  "66666666666",
+		AccessExpire: 1234,
+		RefreshAfter: 1234,
+	}, nil
 }
