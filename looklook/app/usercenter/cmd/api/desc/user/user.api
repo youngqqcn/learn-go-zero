@@ -1,0 +1,73 @@
+syntax = "v1"
+
+
+info(
+    title: "用户"
+    desc: "用户API描述"
+    author: "yqq"
+    email: "youngqqcn@gmail.com"
+    version: "v1"
+)
+
+type User {
+    Id          int64 `json:"id"`
+    Mobile      string `json:"mobile"`
+    Nickname    string `json:"nickname"`
+    Gender      uint8    `json:"gender"`
+    Avatar      string `json:"avatar"`
+    Info        string `json:"info"`
+}
+
+type (
+
+    RegisterReq {
+        Mobile      string  `json:"mobile"`
+        Password    string  `json:"password"`
+    }
+
+    RegisterResp {
+        AccessToken string  `json:"accessToken"`
+        AccessExpire int64  `json:"accessExpire"`
+        RefreshAfter int64  `json:"refreshAfter"`
+    }
+)
+
+type (
+    LoginReq {
+        Mobile  string `json:"mobile"`
+        Password string `json:"password"`
+    }
+
+    LoginResp {
+        AccessToken string  `json:"accessToken"`
+        AccessExpire int64  `json:"accessExpire"`
+        RefreshAfter int64  `json:"refreshAfter"`
+    }
+)
+
+
+type (
+    WXMiniAuthReq {
+        Code            string `json:"code"`
+        IV              string `json:"iv"`
+        EncryptedData   string `json:"encryptedData"`
+    }
+
+    WXMiniAuthResp {
+        AccessToken string  `json:"accessToken"`
+        AccessExpire int64  `json:"accessExpire"`
+        RefreshAfter int64  `json:"refreshAfter"`
+    }
+
+)
+
+
+type (
+    UserInfoReq {
+        // ？
+    }
+
+    UserInfoResp {
+        UserInfo    User   `json:"userInfo"`
+    }
+)
