@@ -17,6 +17,7 @@ type (
 		homestayModel
 		RowBuilder() squirrel.SelectBuilder
 		FindPageListByIdDESC(ctx context.Context, rowBuilder squirrel.SelectBuilder, preMinId, pageSize int64) ([]*Homestay, error)
+		FindPageListByPage(ctx context.Context, rowBuilder squirrel.SelectBuilder, page, pageSize int64, orderBy string) ([]*Homestay, error)
 	}
 
 	customHomestayModel struct {
@@ -54,4 +55,33 @@ func (m *defaultHomestayModel) FindPageListByIdDESC(ctx context.Context, rowBuil
 	default:
 		return nil, err
 	}
+}
+
+func (m *defaultHomestayModel) FindPageListByPage(ctx context.Context, rowBuilder squirrel.SelectBuilder, page, pageSize int64, orderBy string) ([]*Homestay, error) {
+	if orderBy == "" {
+		rowBuilder.OrderBy("id DESC")
+	} else {
+		rowBuilder.OrderBy(orderBy)
+	}
+
+	// 分页处理
+	if page < 1 {
+		page = 1
+	}
+	offset := (page - 1) * pageSize
+
+	query, values, err := rowBuilder.Where("del_state = ?", globalkey.DelStateNo).Offset(uint64(offset)).Limit(uint64(pageSize)).ToSql()
+	if err != nil {
+		return nil, err
+	}
+
+	var resp []*Homestay
+	err = m.QueryRowsNoCacheCtx(ctx, &resp, query, values...)
+	switch err {
+	case nil:
+		return resp, nil
+	default:
+		return nil, err
+	}
+
 }
