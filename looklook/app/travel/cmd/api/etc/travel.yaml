@@ -10,3 +10,10 @@ DB:
 Cache:
   - Host: 127.0.0.1:36379
     Pass: G62m50oigInC30sf
+
+
+#调用RPC
+TravelRpcConf:
+  Endpoints:
+    - 127.0.0.1:9002
+  NonBlock: true
