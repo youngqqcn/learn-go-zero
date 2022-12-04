@@ -2,6 +2,8 @@ package homestay
 
 import (
 	"context"
+	"github.com/jinzhu/copier"
+	"github.com/pkg/errors"
 
 	"looklook/app/travel/cmd/api/internal/svc"
 	"looklook/app/travel/cmd/api/internal/types"
@@ -24,7 +26,26 @@ func NewGetListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetListLo
 }
 
 func (l *GetListLogic) GetList(req *types.GuessListReq) (resp *types.GuessListResp, err error) {
-	// todo: add your logic here and delete this line
 
+	list, err := l.svcCtx.HomestayModel.FindPageListByIdDESC(l.ctx, l.svcCtx.HomestayModel.RowBuilder(), 0, 5)
+	if err != nil {
+		return nil, errors.New("FindPageListByIdDESC")
+	}
+
+	var rsp []types.Homestay
+	if len(list) > 0 {
+		for _, homestay := range list {
+			typeHomestay := new(types.Homestay)
+			copier.Copy(typeHomestay, homestay)
+
+			// TODO, 分转成元
+			rsp = append(rsp, *typeHomestay)
+		}
+	}
+
+	resp = &types.GuessListResp{
+		List: rsp,
+	}
+	err = nil
 	return
 }
