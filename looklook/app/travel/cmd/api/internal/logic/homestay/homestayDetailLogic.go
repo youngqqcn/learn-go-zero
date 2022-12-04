@@ -2,6 +2,8 @@ package homestay
 
 import (
 	"context"
+	"errors"
+	"github.com/jinzhu/copier"
 
 	"looklook/app/travel/cmd/api/internal/svc"
 	"looklook/app/travel/cmd/api/internal/types"
@@ -24,7 +26,14 @@ func NewHomestayDetailLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Ho
 }
 
 func (l *HomestayDetailLogic) HomestayDetail(req *types.HomestayDetailReq) (resp *types.HomestayDetailResp, err error) {
-	// todo: add your logic here and delete this line
 
+	homeStay, err := l.svcCtx.HomestayModel.FindOne(l.ctx, req.Id)
+	if err != nil {
+		return nil, errors.New("FindOne error")
+	}
+
+	resp = new(types.HomestayDetailResp)
+	copier.Copy(&resp.Homestay, homeStay)
+	err = nil
 	return
 }
