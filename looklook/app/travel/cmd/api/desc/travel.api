@@ -1,0 +1,68 @@
+syntax = "v1"
+
+info(
+	title: "type title here"
+	desc: "type desc here"
+	author: "type author here"
+	email: "type email here"
+	version: "type version here"
+)
+
+import (
+	"homestay/homestay.api"
+	"homestayBusiness/homestayBusiness.api"
+	"homestayComment/homestayComment.api"
+)
+
+@server (
+	prefix: travel/v1
+	group:  homestay
+)
+service travel {
+	@doc "homestay room list"
+	@handler homestayList
+	post /homestay/homestayList (HomestayListReq) returns (HomestayListResp)
+	
+	@doc "boss all homestay room"
+	@handler businessList
+	post /homestay/businessList (BusinessListReq) returns (BusinessListResp)
+	
+	@doc "guess homestay room"
+	@handler getList
+	post /homestay/getList (GuessListReq) returns (GuessListResp)
+	
+	@doc "homestay room detail"
+	@handler homestayDetail
+	post /homestay/homestayDetail (HomestayDetailReq) returns (HomestayDetailResp)
+}
+
+// ========================
+
+@server (
+	prefix: travel/v1
+	group: homestayBusiness
+)
+service travel {
+	@doc "good boss"
+	@handler goodBoss
+	post /homestayBusiness/goodBoss (GoodBossReq) returns (GoodBossResp)
+	
+	@doc "business list"
+	@handler homestayBusinessList
+	post /homestayBusiness/homestayBusinessList (HomestayBusinessListReq) returns (HomestayBusinessListResp)
+	
+	@doc "boss detail"
+	@handler homestayBusinessDetail
+	post /homestayBusiness/homestayBusinessDetail (HomestayBusinessDetailReq) returns (HomestayBusinessDetailResp)
+}
+
+// ========================
+@server (
+	prefix : travel/v1
+	group : homestayComment
+)
+service travel {
+	@doc "homestay comment list"
+	@handler commentList
+	post /homestayComment/commentList (CommentListReq) returns (CommentListResp)
+}
