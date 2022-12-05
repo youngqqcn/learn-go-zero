@@ -55,8 +55,8 @@ type HomestayDetailResp struct {
 type HomestayBusinessBoss struct {
 	Id       int64  `json:"id"`
 	UserId   int64  `json:"userId"`
-	NickName int64  `json:"nickName"`
-	Avatar   int64  `json:"avatar"`
+	NickName string `json:"nickName"`
+	Avatar   string `json:"avatar"`
 	Info     string `json:"info"` // 老板排名
 	Rank     int64  `json:"rank"` // 排名
 }
