@@ -14,8 +14,10 @@ type ServiceContext struct {
 
 	HomestayModel         model.HomestayModel
 	HomestayActivityModel model.HomestayActivityModel
-	TravelRpc             travel.Travel
-	UsercenterRpc         usercenter.Usercenter
+	HomestayBusinessModel model.HomestayBusinessModel
+
+	TravelRpc     travel.Travel
+	UsercenterRpc usercenter.Usercenter
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -24,6 +26,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		Config:                c,
 		HomestayModel:         model.NewHomestayModel(sqlConn, c.Cache),
 		HomestayActivityModel: model.NewHomestayActivityModel(sqlConn, c.Cache),
+		HomestayBusinessModel: model.NewHomestayBusinessModel(sqlConn, c.Cache),
 
 		// RPC
 		TravelRpc:     travel.NewTravel(zrpc.MustNewClient(c.TravelRpcConf)),
