@@ -32,7 +32,7 @@ func (s *UsercenterServer) Register(ctx context.Context, in *pb.RegisterReq) (*p
 	return l.Register(in)
 }
 
-func (s *UsercenterServer) GetUserInfo(ctx context.Context, in *pb.GetUserInfoReq) (*pb.GenerateTokenResp, error) {
+func (s *UsercenterServer) GetUserInfo(ctx context.Context, in *pb.GetUserInfoReq) (*pb.GetUserInfoResp, error) {
 	l := logic.NewGetUserInfoLogic(ctx, s.svcCtx)
 	return l.GetUserInfo(in)
 }

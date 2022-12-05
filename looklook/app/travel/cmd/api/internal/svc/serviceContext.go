@@ -6,6 +6,7 @@ import (
 	"looklook/app/travel/cmd/api/internal/config"
 	"looklook/app/travel/cmd/rpc/travel"
 	"looklook/app/travel/model"
+	"looklook/app/usercenter/cmd/rpc/usercenter"
 )
 
 type ServiceContext struct {
@@ -14,6 +15,7 @@ type ServiceContext struct {
 	HomestayModel         model.HomestayModel
 	HomestayActivityModel model.HomestayActivityModel
 	TravelRpc             travel.Travel
+	UsercenterRpc         usercenter.Usercenter
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -24,6 +26,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		HomestayActivityModel: model.NewHomestayActivityModel(sqlConn, c.Cache),
 
 		// RPC
-		TravelRpc: travel.NewTravel(zrpc.MustNewClient(c.TravelRpcConf)),
+		TravelRpc:     travel.NewTravel(zrpc.MustNewClient(c.TravelRpcConf)),
+		UsercenterRpc: usercenter.NewUsercenter(zrpc.MustNewClient(c.UsercenterRpcConf)),
 	}
 }

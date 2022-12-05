@@ -91,7 +91,7 @@ message GenerateTokenResp {
 service usercenter {
   rpc login(LoginReq) returns(LoginResp);
   rpc register(RegisterReq) returns(RegisterResp);
-  rpc getUserInfo(GetUserInfoReq) returns(GenerateTokenResp);
+  rpc getUserInfo(GetUserInfoReq) returns(GetUserInfoResp);
   rpc getUserAuthByAuthKey(GetUserAuthByAuthKeyReq) returns(GetUserAuthByAuthKeyResp);
   rpc getUserAuthByUserId(GetUserAuthByUserIdReq) returns(GetUserAuthyUserIdResp);
   rpc generateToken(GenerateTokenReq) returns(GenerateTokenResp);

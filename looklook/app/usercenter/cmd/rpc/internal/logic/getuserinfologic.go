@@ -2,6 +2,10 @@ package logic
 
 import (
 	"context"
+	"github.com/jinzhu/copier"
+	"github.com/pkg/errors"
+	"looklook/app/usercenter/cmd/rpc/usercenter"
+	"looklook/app/usercenter/model"
 
 	"looklook/app/usercenter/cmd/rpc/internal/svc"
 	"looklook/app/usercenter/cmd/rpc/pb"
@@ -23,8 +27,20 @@ func NewGetUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 	}
 }
 
-func (l *GetUserInfoLogic) GetUserInfo(in *pb.GetUserInfoReq) (*pb.GenerateTokenResp, error) {
-	// todo: add your logic here and delete this line
+func (l *GetUserInfoLogic) GetUserInfo(in *pb.GetUserInfoReq) (*pb.GetUserInfoResp, error) {
 
-	return &pb.GenerateTokenResp{}, nil
+	user, err := l.svcCtx.UserModel.FindOne(l.ctx, in.Id)
+	if err != nil && err != model.ErrNotFound {
+		return nil, errors.New("Not found user")
+	}
+	if user == nil {
+		return nil, errors.New("user not exists")
+	}
+
+	var respUser usercenter.User
+	copier.Copy(&respUser, user)
+
+	return &pb.GetUserInfoResp{
+		User: &respUser,
+	}, nil
 }

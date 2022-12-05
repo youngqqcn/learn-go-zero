@@ -17,3 +17,8 @@ TravelRpcConf:
   Endpoints:
     - 127.0.0.1:9002
   NonBlock: true
+
+UsercenterRpcConf:
+  Endpoints:
+    - 127.0.0.1:9000
+  NonBlock: true

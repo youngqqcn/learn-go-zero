@@ -24,7 +24,7 @@ const _ = grpc.SupportPackageIsVersion7
 type UsercenterClient interface {
 	Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
 	Register(ctx context.Context, in *RegisterReq, opts ...grpc.CallOption) (*RegisterResp, error)
-	GetUserInfo(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GenerateTokenResp, error)
+	GetUserInfo(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GetUserInfoResp, error)
 	GetUserAuthByAuthKey(ctx context.Context, in *GetUserAuthByAuthKeyReq, opts ...grpc.CallOption) (*GetUserAuthByAuthKeyResp, error)
 	GetUserAuthByUserId(ctx context.Context, in *GetUserAuthByUserIdReq, opts ...grpc.CallOption) (*GetUserAuthyUserIdResp, error)
 	GenerateToken(ctx context.Context, in *GenerateTokenReq, opts ...grpc.CallOption) (*GenerateTokenResp, error)
@@ -56,8 +56,8 @@ func (c *usercenterClient) Register(ctx context.Context, in *RegisterReq, opts .
 	return out, nil
 }
 
-func (c *usercenterClient) GetUserInfo(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GenerateTokenResp, error) {
-	out := new(GenerateTokenResp)
+func (c *usercenterClient) GetUserInfo(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GetUserInfoResp, error) {
+	out := new(GetUserInfoResp)
 	err := c.cc.Invoke(ctx, "/pb.usercenter/getUserInfo", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -98,7 +98,7 @@ func (c *usercenterClient) GenerateToken(ctx context.Context, in *GenerateTokenR
 type UsercenterServer interface {
 	Login(context.Context, *LoginReq) (*LoginResp, error)
 	Register(context.Context, *RegisterReq) (*RegisterResp, error)
-	GetUserInfo(context.Context, *GetUserInfoReq) (*GenerateTokenResp, error)
+	GetUserInfo(context.Context, *GetUserInfoReq) (*GetUserInfoResp, error)
 	GetUserAuthByAuthKey(context.Context, *GetUserAuthByAuthKeyReq) (*GetUserAuthByAuthKeyResp, error)
 	GetUserAuthByUserId(context.Context, *GetUserAuthByUserIdReq) (*GetUserAuthyUserIdResp, error)
 	GenerateToken(context.Context, *GenerateTokenReq) (*GenerateTokenResp, error)
@@ -115,7 +115,7 @@ func (UnimplementedUsercenterServer) Login(context.Context, *LoginReq) (*LoginRe
 func (UnimplementedUsercenterServer) Register(context.Context, *RegisterReq) (*RegisterResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
 }
-func (UnimplementedUsercenterServer) GetUserInfo(context.Context, *GetUserInfoReq) (*GenerateTokenResp, error) {
+func (UnimplementedUsercenterServer) GetUserInfo(context.Context, *GetUserInfoReq) (*GetUserInfoResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserInfo not implemented")
 }
 func (UnimplementedUsercenterServer) GetUserAuthByAuthKey(context.Context, *GetUserAuthByAuthKeyReq) (*GetUserAuthByAuthKeyResp, error) {
