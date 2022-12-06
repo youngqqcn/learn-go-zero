@@ -52,7 +52,7 @@ func (l *HomestayBusinessDetailLogic) HomestayBusinessDetail(req *types.Homestay
 				Id:       userInfo.User.Id,
 				UserId:   userInfo.User.Id,
 				NickName: userInfo.User.Nickname,
-				Avatar:   userInfo.User.Avatar, // TODO: 为什么是空的？？？？
+				Avatar:   userInfo.User.Avatar, // 为什么是空的？？？？  注意Redis缓存
 				Info:     userInfo.User.Info,
 				Rank:     userInfo.User.Id,
 			}
