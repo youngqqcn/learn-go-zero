@@ -9,3 +9,5 @@ var HomestayActivityGoodBusiType = "goodBusiness"       //最佳房东
 
 var HomestayActivityDownStatus int64 = 0 //上架
 var HomestayActivityUpStatus int64 = 1   //上架
+
+var HomestayCommentNotDeleted int64 = 0
