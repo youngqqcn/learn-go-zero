@@ -9,6 +9,13 @@ TravelRpcConf:
 
 DB:
   DataSource: root:PXDN93VRKUm8TeE7@tcp(127.0.0.1:33069)/looklook_order?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+
+
+#Cache:
+#  - Host: 127.0.0.1:36379
+#    Pass: G62m50oigInC30sf
+
 Cache:
-  - Host: 127.0.0.1:36379
-    Pass: G62m50oigInC30s
+  -
+    Host: 127.0.0.1:36379
+    Pass: G62m50oigInC30sf
