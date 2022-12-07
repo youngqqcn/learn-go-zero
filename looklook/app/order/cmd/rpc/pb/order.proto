@@ -27,8 +27,8 @@ message HomestayOrder {
   int64 tradeState = 20;
   int64 tradeCode = 21;
   string remark = 22;
-  string orderTotalPrice = 23;
-  string foodTotalPrice = 24;
+  int64 orderTotalPrice = 23;
+  int64 foodTotalPrice = 24;
   int64 homestayTotalPrice = 25;
   int64 createTime = 26;
   int64 needFood = 27;

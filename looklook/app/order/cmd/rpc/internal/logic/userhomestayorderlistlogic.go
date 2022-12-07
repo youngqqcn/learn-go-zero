@@ -2,7 +2,8 @@ package logic
 
 import (
 	"context"
-
+	"github.com/Masterminds/squirrel"
+	"github.com/jinzhu/copier"
 	"looklook/app/order/cmd/rpc/internal/svc"
 	"looklook/app/order/cmd/rpc/pb"
 
@@ -25,7 +26,26 @@ func NewUserHomestayOrderListLogic(ctx context.Context, svcCtx *svc.ServiceConte
 
 // 用户订单列表
 func (l *UserHomestayOrderListLogic) UserHomestayOrderList(in *pb.UserHomestayOrderListReq) (*pb.UserHomestayOrderListResp, error) {
-	// todo: add your logic here and delete this line
 
-	return &pb.UserHomestayOrderListResp{}, nil
+	whereBuilder := l.svcCtx.HomestayOrderModel.RowBuilder().Where(squirrel.Eq{
+		"user_id":     in.UserId,
+		"trade_state": in.TradeState,
+	})
+	homestayOrderList, err := l.svcCtx.HomestayOrderModel.FindPageListByIdDESC(l.ctx, whereBuilder, 0, 10)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp []*pb.HomestayOrder
+	if len(homestayOrderList) > 0 {
+		for _, item := range homestayOrderList {
+			var order pb.HomestayOrder
+			copier.Copy(&order, item)
+			resp = append(resp, &order)
+		}
+	}
+
+	return &pb.UserHomestayOrderListResp{
+		List: resp,
+	}, nil
 }
