@@ -28,9 +28,7 @@ func NewRegisterLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Register
 }
 
 func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.RegisterResp, err error) {
-	// todo: add your logic here and delete this line
 	// 用户注册
-	logx.Error("xxxxxxxxxxxx")
 
 	registerResp, err := l.svcCtx.UserCenterRpc.Register(l.ctx, &usercenter.RegisterReq{
 		Mobile:   req.Mobile,

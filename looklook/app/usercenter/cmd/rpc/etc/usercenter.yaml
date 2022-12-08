@@ -7,6 +7,14 @@ Mode: dev
 #  - 127.0.0.1:2379
 #  Key: usercenter.rpc
 #
+
+#jwtAuth
+JwtAuth:
+  AccessSecret: ae0536f9-6450-4606-8e13-5a19ed505da0
+  AccessExpire: 31536000
+
+
+
 DB:
   DataSource: root:PXDN93VRKUm8TeE7@tcp(127.0.0.1:33069)/looklook_usercenter?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
 Cache:

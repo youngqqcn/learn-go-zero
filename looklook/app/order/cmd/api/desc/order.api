@@ -15,7 +15,7 @@ import (
 @server (
 	prefix : order/v1
 	group: homestayOrder
-	//    jwt: JwtAuth   // TODO: 增加jwt
+	jwt: JwtAuth   // TODO: 增加jwt
 )
 service order {
 	@doc "创建订单"

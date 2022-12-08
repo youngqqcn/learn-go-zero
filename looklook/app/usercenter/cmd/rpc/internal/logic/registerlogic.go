@@ -7,6 +7,7 @@ import (
 	"golang.org/x/xerrors"
 	"looklook/app/usercenter/cmd/rpc/usercenter"
 	"looklook/app/usercenter/model"
+	"looklook/common/tool"
 
 	"looklook/app/usercenter/cmd/rpc/internal/svc"
 	"looklook/app/usercenter/cmd/rpc/pb"
@@ -47,7 +48,7 @@ func (l *RegisterLogic) Register(in *pb.RegisterReq) (*pb.RegisterResp, error) {
 		user.Mobile = in.Mobile
 		user.Avatar = in.Nickname
 		// TODO: 转为md5
-		user.Password = in.Password
+		user.Password = tool.MdByString(in.Password)
 
 		insertResult, err := l.svcCtx.UserModel.Insert(l.ctx, user)
 		if err != nil {

@@ -11,6 +11,10 @@ Port: 9007
 #    Host: 127.0.0.1:36379
 #    Pass: G62m50oigInC30sf
 
+#jwtAuth
+JwtAuth:
+  AccessSecret: ae0536f9-6450-4606-8e13-5a19ed505da0
+
 
 #rpc
 OrderRpcConf:

@@ -24,7 +24,6 @@ func NewUserHomestayOrderDetailLogic(ctx context.Context, svcCtx *svc.ServiceCon
 }
 
 func (l *UserHomestayOrderDetailLogic) UserHomestayOrderDetail(req *types.UserHomestayOrderDetailReq) (resp *types.UserHomestayOrderDetailResp, err error) {
-	// todo: add your logic here and delete this line
 
 	return
 }

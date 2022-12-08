@@ -28,6 +28,7 @@ service usercenter {
 
 //
 
+
 @server (
 	prefix: usercenter/v1
 	group: user
