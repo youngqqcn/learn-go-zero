@@ -27,6 +27,7 @@ func NewRegisterLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Register
 	}
 }
 
+// Register 如果用Postman进行测试，需要在Postman的Authorization选择Bearer Token， 填写jwt的token
 func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.RegisterResp, err error) {
 	// 用户注册
 
