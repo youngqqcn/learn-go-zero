@@ -1,0 +1,32 @@
+syntax = "v1"
+
+info(
+	title: "订单服务 "
+	desc: "订单服务"
+	author: "yqq"
+	email: "youngqqcn@gmail.com"
+	version: "v1"
+)
+
+import (
+	"order/order.api"
+)
+
+@server (
+	prefix : order/v1
+	group: homestayOrder
+	//    jwt: JwtAuth   // TODO: 增加jwt
+)
+service order {
+	@doc "创建订单"
+	@handler createHomestayOrder
+	post /homestayOrder/createHomestayOrder (CreateHomestayOrderReq) returns (CreateHomestayOrderResp)
+	
+	@doc "订单列表"
+	@handler userHomestayOrderList
+	post /homestayOrder/userHomestayOrderList (UserHomestayOrderListReq) returns (UserHomestayOrderListResp)
+	
+	@doc "订单明细"
+	@handler userHomestayOrderDetail
+	post /homestayOrder/userHomestayOrderDetail (UserHomestayOrderDetailReq) returns (UserHomestayOrderDetailResp)
+}
