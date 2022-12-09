@@ -2,6 +2,9 @@ package homestayOrder
 
 import (
 	"context"
+	"github.com/jinzhu/copier"
+	"github.com/pkg/errors"
+	"looklook/app/order/cmd/rpc/order"
 
 	"looklook/app/order/cmd/api/internal/svc"
 	"looklook/app/order/cmd/api/internal/types"
@@ -25,5 +28,18 @@ func NewUserHomestayOrderDetailLogic(ctx context.Context, svcCtx *svc.ServiceCon
 
 func (l *UserHomestayOrderDetailLogic) UserHomestayOrderDetail(req *types.UserHomestayOrderDetailReq) (resp *types.UserHomestayOrderDetailResp, err error) {
 
+	orderDetailResp, err := l.svcCtx.OrderRpc.HomestayOrderDetail(l.ctx, &order.HomestayOrderDetailReq{
+		Sn: req.Sn,
+	})
+
+	if err != nil {
+		return nil, errors.Errorf("svcCtx.OrderRpc.HomestayOrderDetail, error: %v", err.Error())
+	}
+	if orderDetailResp == nil {
+		return nil, errors.Errorf("order %v not exists", req.Sn)
+	}
+
+	resp = new(types.UserHomestayOrderDetailResp)
+	copier.Copy(resp, orderDetailResp.HomestayOrder)
 	return
 }

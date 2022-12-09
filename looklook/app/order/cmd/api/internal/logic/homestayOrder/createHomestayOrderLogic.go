@@ -39,7 +39,6 @@ func (l *CreateHomestayOrderLogic) CreateHomestayOrder(req *types.CreateHomestay
 		return nil, errors.New("empty")
 	}
 
-	// TODO： 增加jwt支持
 	userId := ctxdata.GetUidFromCtx(l.ctx)
 
 	resp, err := l.svcCtx.OrderRpc.CreateHomestayOrder(l.ctx, &order.CreateHomestayOrderReq{

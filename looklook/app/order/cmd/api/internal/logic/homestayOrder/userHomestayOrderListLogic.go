@@ -2,6 +2,10 @@ package homestayOrder
 
 import (
 	"context"
+	"github.com/jinzhu/copier"
+	"github.com/pkg/errors"
+	"looklook/app/order/cmd/rpc/order"
+	"looklook/common/ctxdata"
 
 	"looklook/app/order/cmd/api/internal/svc"
 	"looklook/app/order/cmd/api/internal/types"
@@ -24,7 +28,27 @@ func NewUserHomestayOrderListLogic(ctx context.Context, svcCtx *svc.ServiceConte
 }
 
 func (l *UserHomestayOrderListLogic) UserHomestayOrderList(req *types.UserHomestayOrderListReq) (resp *types.UserHomestayOrderListResp, err error) {
-	// todo: add your logic here and delete this line
+
+	userId := ctxdata.GetUidFromCtx(l.ctx)
+
+	homestayOrderList, err := l.svcCtx.OrderRpc.UserHomestayOrderList(l.ctx, &order.UserHomestayOrderListReq{
+		LastId:     req.LastId,
+		PageSize:   req.PageSize,
+		UserId:     userId,
+		TradeState: req.TradeFilter,
+	})
+	if err != nil {
+		return nil, errors.Errorf("l.svcCtx.OrderRpc.UserHomestayOrderList: %v", err.Error())
+	}
+
+	resp = new(types.UserHomestayOrderListResp)
+	//copier.Copy(resp.List, homestayOrderList.List)
+
+	for _, item := range homestayOrderList.List {
+		var v types.UserHomestayOrderListView
+		_ = copier.Copy(&v, item)
+		resp.List = append(resp.List, v)
+	}
 
 	return
 }

@@ -25,7 +25,7 @@ message HomestayOrder {
   int64 liveEndDate = 18;
   int64 livePeopleNum = 19; // 实际住几人
   int64 tradeState = 20;
-  int64 tradeCode = 21;
+  string tradeCode = 21;
   string remark = 22;
   int64 orderTotalPrice = 23;
   int64 foodTotalPrice = 24;

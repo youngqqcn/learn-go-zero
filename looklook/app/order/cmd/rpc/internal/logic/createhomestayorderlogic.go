@@ -2,11 +2,12 @@ package logic
 
 import (
 	"context"
-	"fmt"
 	"looklook/app/order/cmd/rpc/internal/svc"
 	"looklook/app/order/cmd/rpc/pb"
 	"looklook/app/order/model"
 	"looklook/app/travel/cmd/rpc/travel"
+	"looklook/common/tool"
+	"looklook/common/uniqueid"
 	"time"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -40,7 +41,7 @@ func (l *CreateHomestayOrderLogic) CreateHomestayOrder(in *pb.CreateHomestayOrde
 	var order model.HomestayOrder
 	order.DeleteTime = time.Unix(0, 0) // 注意时间
 
-	order.Sn = "12345" + fmt.Sprintf("%d", in.UserId)
+	order.Sn = uniqueid.GenSn(uniqueid.SN_PREFIX_HOMESTAY_ORDER) // "12345" + fmt.Sprintf("%d", in.UserId)
 	order.UserId = in.UserId
 	order.HomestayId = in.HomestayId
 	order.Title = h.Homestay.Title
@@ -49,7 +50,6 @@ func (l *CreateHomestayOrderLogic) CreateHomestayOrder(in *pb.CreateHomestayOrde
 	order.Info = h.Homestay.Info
 	order.PeopleNum = h.Homestay.PeopleNum
 	order.RowType = h.Homestay.RowType
-	order.NeedFood = 1 // TODO
 	order.FoodInfo = h.Homestay.FoodInfo
 	order.FoodPrice = h.Homestay.FooPrice
 	order.MarketHomestayPrice = h.Homestay.MarketHomestayPrice
@@ -59,11 +59,16 @@ func (l *CreateHomestayOrderLogic) CreateHomestayOrder(in *pb.CreateHomestayOrde
 	order.LiveEndDate = time.Unix(in.LiveEndTime, 0)
 	order.LivePeopleNum = in.LivePeopleNum // 实际住几人
 	order.TradeState = model.HomestayOrderTradeStateWaitPay
-	order.TradeCode = "xdsfdsfa" // TODO
+	order.TradeCode = tool.Krand(8, tool.KC_RAND_KIND_ALL)
 	order.Remark = in.Remark
-	order.OrderTotalPrice = 0    // TODO
-	order.FoodTotalPrice = 0     // TODO
-	order.HomestayTotalPrice = 0 // TODO
+	order.OrderTotalPrice = 0
+	order.FoodTotalPrice = 0
+	order.HomestayTotalPrice = 0
+	order.NeedFood = model.HomestayOrderNeedFoodNo
+
+	if in.IsFood {
+		order.NeedFood = model.HomestayOrderNeedFoodYes
+	}
 
 	liveDays := int64(order.LiveEndDate.Sub(order.LiveStartDate).Seconds() / 86400) //Stayed a few days in total
 	order.HomestayTotalPrice = int64(h.Homestay.HomestayPrice * liveDays)           //Calculate the total price of the B&B
