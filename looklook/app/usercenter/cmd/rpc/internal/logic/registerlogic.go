@@ -42,14 +42,22 @@ func (l *RegisterLogic) Register(in *pb.RegisterReq) (*pb.RegisterResp, error) {
 		return nil, errors.New("already exits")
 	}
 
+	// 开启事务
 	var userId int64
 	if err := l.svcCtx.UserModel.Trans(l.ctx, func(ctx context.Context, session sqlx.Session) error {
 		user := new(model.User)
 		user.Mobile = in.Mobile
 		user.Avatar = in.Nickname
-		// TODO: 转为md5
-		user.Password = tool.MdByString(in.Password)
 
+		if len(user.Nickname) == 0 {
+			user.Nickname = tool.Krand(8, tool.KC_RAND_KIND_ALL)
+		}
+
+		if len(in.Password) > 0 {
+			user.Password = tool.MdByString(in.Password)
+		}
+
+		// 插入user表
 		insertResult, err := l.svcCtx.UserModel.Insert(l.ctx, user)
 		if err != nil {
 			return errors.New("insert user to db error")
@@ -68,6 +76,7 @@ func (l *RegisterLogic) Register(in *pb.RegisterReq) (*pb.RegisterResp, error) {
 		userAuth.AuthKey = in.AuthKey
 		userAuth.AuthType = in.AuthType
 
+		// 插入user_auth表
 		if _, err := l.svcCtx.UserAuthModel.Insert(ctx, userAuth); err != nil {
 			return errors.New("UserAuthModel insert error")
 		}

@@ -13,3 +13,9 @@ UsercenterRpcConf:
   Endpoints:
     - 127.0.0.1:9000
   NonBlock: true
+
+
+#WxMiniConf
+WxMiniConf:
+  AppId: wx2add729fadddddd
+  Secret: 20365395b3de9b2a9351ddddddd
